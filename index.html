@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>💎 International Jewelry Box</title>
     
-    <!-- PWA STUFF -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a0033">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,6 +189,14 @@
             margin-top: 10px;
         }
 
+        .button-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            z-index: 10;
+        }
+
         .install-btn {
             display: none;
             background: linear-gradient(45deg, #ff00ff, #00ffff);
@@ -201,13 +208,88 @@
             border-radius: 25px;
             cursor: pointer;
             box-shadow: 0 0 20px #ff00ff;
-            z-index: 10;
-            margin-top: 10px;
         }
 
         .install-btn:hover {
             box-shadow: 0 0 30px #00ffff;
             transform: scale(1.05);
+        }
+
+        .qr-btn {
+            display: block;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border: none;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        .qr-btn:hover {
+            box-shadow: 0 0 30px #ff00ff;
+            transform: scale(1.05);
+        }
+
+        .qr-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr-popup.active {
+            display: flex;
+        }
+
+        .qr-content {
+            background: linear-gradient(145deg, #1a0033, #000);
+            border: 4px solid #ff00ff;
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 40px #ff00ff, 0 0 80px #00ffff;
+            animation: borderGlow 1.8s infinite alternate ease-in-out;
+            position: relative;
+        }
+
+        .qr-content h2 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #00ffff;
+        }
+
+        .qr-content img {
+            border-radius: 15px;
+            border: 4px solid #00ffff;
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        .qr-content p {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #ff00ff;
+        }
+
+        .qr-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #ff00ff;
+            cursor: pointer;
+        }
+
+        .qr-close:hover {
+            color: #00ffff;
         }
 
         @media (max-width: 600px) {
@@ -303,11 +385,23 @@
         <div id="status" class="status"></div>
     </div>
 
-    <button class="install-btn" id="installBtn">📱 Install App</button>
+    <div class="button-row">
+        <button class="install-btn" id="installBtn">📱 Install App</button>
+        <button class="qr-btn" id="qrBtn">📲 Share QR Code</button>
+    </div>
 
     <div class="info">
         type anything → wait 4 seconds → ✨ magic ✨<br>
         tap ⇄ to swap 💎
+    </div>
+
+    <div class="qr-popup" id="qrPopup">
+        <div class="qr-content">
+            <span class="qr-close" id="qrClose">✕</span>
+            <h2>📲 Scan to Open</h2>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://dacameragirl.github.io/international-jewelry-box/" alt="QR Code">
+            <p>International Jewelry Box 💎</p>
+        </div>
     </div>
 
     <script>
@@ -318,6 +412,9 @@
         var swapBtn = document.getElementById('swapBtn');
         var status = document.getElementById('status');
         var installBtn = document.getElementById('installBtn');
+        var qrBtn = document.getElementById('qrBtn');
+        var qrPopup = document.getElementById('qrPopup');
+        var qrClose = document.getElementById('qrClose');
 
         var timeout = null;
         var isAnimating = false;
@@ -330,6 +427,21 @@
             'https://translate.plausibility.cloud',
             'https://lingva.garuder.xyz'
         ];
+
+        // QR Code popup
+        qrBtn.addEventListener('click', function() {
+            qrPopup.classList.add('active');
+        });
+
+        qrClose.addEventListener('click', function() {
+            qrPopup.classList.remove('active');
+        });
+
+        qrPopup.addEventListener('click', function(e) {
+            if (e.target === qrPopup) {
+                qrPopup.classList.remove('active');
+            }
+        });
 
         // PWA Install prompt
         window.addEventListener('beforeinstallprompt', function(e) {
