@@ -326,7 +326,7 @@
             <option value="ru">Russian 🇷🇺</option>
             <option value="ja">Japanese 🇯🇵</option>
             <option value="ko">Korean 🇰🇷</option>
-            <option value="zh">Chinese 🇨🇳</option>
+            <option value="zh-CN">Chinese 🇨🇳</option>
             <option value="ar">Arabic 🇸🇦</option>
             <option value="el">Greek 🇬🇷</option>
             <option value="hi">Hindi 🇮🇳</option>
@@ -342,7 +342,7 @@
             <option value="cs">Czech 🇨🇿</option>
             <option value="ro">Romanian 🇷🇴</option>
             <option value="hu">Hungarian 🇭🇺</option>
-            <option value="fil">Filipino 🇵🇭</option>
+            <option value="tl">Filipino 🇵🇭</option>
         </select>
 
         <button class="swap-btn" id="swapBtn" title="Swap languages">⇄</button>
@@ -357,7 +357,7 @@
             <option value="ru">Russian 🇷🇺</option>
             <option value="ja">Japanese 🇯🇵</option>
             <option value="ko">Korean 🇰🇷</option>
-            <option value="zh">Chinese 🇨🇳</option>
+            <option value="zh-CN">Chinese 🇨🇳</option>
             <option value="ar">Arabic 🇸🇦</option>
             <option value="el">Greek 🇬🇷</option>
             <option value="hi">Hindi 🇮🇳</option>
@@ -373,7 +373,7 @@
             <option value="cs">Czech 🇨🇿</option>
             <option value="ro">Romanian 🇷🇴</option>
             <option value="hu">Hungarian 🇭🇺</option>
-            <option value="fil">Filipino 🇵🇭</option>
+            <option value="tl">Filipino 🇵🇭</option>
         </select>
     </div>
 
@@ -422,12 +422,6 @@
         var FADE_DURATION = 6500;
         var deferredPrompt = null;
 
-        var lingvaServers = [
-            'https://lingva.lunar.icu',
-            'https://translate.plausibility.cloud',
-            'https://lingva.garuder.xyz'
-        ];
-
         // QR Code popup
         qrBtn.addEventListener('click', function() {
             qrPopup.classList.add('active');
@@ -475,22 +469,63 @@
             status.textContent = '🔄 Languages swapped!';
         });
 
-        async function tryLingva(text, fromLang, toLang, serverUrl) {
-            var url = serverUrl + '/api/v1/' + fromLang + '/' + toLang + '/' + encodeURIComponent(text);
+        // MyMemory API - most reliable for two-way translation
+        async function tryMyMemory(text, fromLang, toLang) {
+            var url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + fromLang + '|' + toLang;
             var res = await fetch(url);
             if (!res.ok) throw new Error('Server error');
             var data = await res.json();
-            if (data.translation) return data.translation;
+            if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
+                var translated = data.responseData.translatedText;
+                // MyMemory sometimes returns all caps warning - filter it out
+                if (translated.includes('PLEASE SELECT TWO DISTINCT LANGUAGES')) {
+                    throw new Error('Same language');
+                }
+                if (translated.includes('MYMEMORY WARNING')) {
+                    translated = translated.split('MYMEMORY WARNING')[0].trim();
+                }
+                return translated;
+            }
             throw new Error('No translation');
         }
 
+        // Lingva API backup
+        async function tryLingva(text, fromLang, toLang) {
+            // Convert language codes for Lingva
+            var lingvaFrom = fromLang.split('-')[0];
+            var lingvaTo = toLang.split('-')[0];
+            
+            var servers = [
+                'https://lingva.lunar.icu',
+                'https://lingva.garuder.xyz',
+                'https://translate.plausibility.cloud'
+            ];
+            
+            for (var i = 0; i < servers.length; i++) {
+                try {
+                    var url = servers[i] + '/api/v1/' + lingvaFrom + '/' + lingvaTo + '/' + encodeURIComponent(text);
+                    var res = await fetch(url);
+                    if (!res.ok) continue;
+                    var data = await res.json();
+                    if (data.translation) return data.translation;
+                } catch (e) {
+                    continue;
+                }
+            }
+            throw new Error('All Lingva servers failed');
+        }
+
+        // LibreTranslate backup
         async function tryLibreTranslate(text, fromLang, toLang) {
+            var libreFrom = fromLang.split('-')[0];
+            var libreTo = toLang.split('-')[0];
+            
             var res = await fetch('https://libretranslate.de/translate', {
                 method: 'POST',
                 body: JSON.stringify({ 
                     q: text, 
-                    source: fromLang, 
-                    target: toLang, 
+                    source: libreFrom, 
+                    target: libreTo, 
                     format: 'text' 
                 }),
                 headers: { 'Content-Type': 'application/json' }
@@ -511,22 +546,31 @@
 
             status.textContent = '✨ Translating...';
 
-            for (var i = 0; i < lingvaServers.length; i++) {
-                try {
-                    var result = await tryLingva(text, fromLang, toLang, lingvaServers[i]);
-                    status.textContent = '💎 Translated!';
-                    return result;
-                } catch (e) {
-                    console.log('Server ' + (i+1) + ' failed, trying next...');
-                }
+            // Try MyMemory first (most reliable for two-way)
+            try {
+                var result = await tryMyMemory(text, fromLang, toLang);
+                status.textContent = '💎 Translated!';
+                return result;
+            } catch (e) {
+                console.log('MyMemory failed, trying Lingva...');
             }
 
+            // Try Lingva second
+            try {
+                var result = await tryLingva(text, fromLang, toLang);
+                status.textContent = '💎 Translated!';
+                return result;
+            } catch (e) {
+                console.log('Lingva failed, trying LibreTranslate...');
+            }
+
+            // Try LibreTranslate last
             try {
                 var result = await tryLibreTranslate(text, fromLang, toLang);
                 status.textContent = '💎 Translated!';
                 return result;
             } catch (e) {
-                console.log('LibreTranslate failed too');
+                console.log('All APIs failed');
             }
 
             status.textContent = '⚠️ Translation unavailable';
