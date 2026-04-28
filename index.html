@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💎 International Jewelry Box</title>
-    
+    <title>International Jewelry Box</title>
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a0033">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Jewelry Box">
     <link rel="apple-touch-icon" href="icon-192.png">
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&family=Noto+Sans+Hebrew:wght@400;700&family=Noto+Sans+Thai:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&family=Noto+Sans:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&family=Noto+Sans+Hebrew:wght@400;700&family=Noto+Sans+Thai:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap');
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
@@ -29,323 +31,506 @@
             align-items: center;
             justify-content: center;
             overflow-x: hidden;
-            color: #fff;
             position: relative;
-            gap: 20px;
-            padding: 20px;
+            gap: 25px;
+            padding: 25px;
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
         }
 
         .app-title {
-            font-size: 1.2rem;
+            font-size: 1.8rem;
             text-align: center;
             color: #fff;
-            text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
-            animation: colorCycle 5s infinite linear;
+            text-shadow: 0 0 25px #ff00ff, 0 0 50px #00ffff, 0 0 75px #ffff00;
+            animation: colorCycle 8s infinite linear, floatTitle 3s ease-in-out infinite alternate;
             z-index: 10;
-            font-family: 'Press Start 2P', cursive;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50px;
+            border: 4px solid #ff00ff;
+            box-shadow: 0 0 40px #ff00ff;
+            letter-spacing: 2px;
+        }
+
+        @keyframes floatTitle {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        @keyframes colorCycle {
+            0% { color: #ff00ff; }
+            14% { color: #00ffff; }
+            28% { color: #ffff00; }
+            42% { color: #00ff00; }
+            56% { color: #ff8800; }
+            70% { color: #ff0088; }
+            84% { color: #8800ff; }
+            100% { color: #ff00ff; }
         }
 
         .controls {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 15px 20px;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 51, 0.8));
+            padding: 20px 30px;
             border-radius: 50px;
-            border: 4px solid #ff00ff;
+            border: 6px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff) 1;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
             z-index: 3;
-            box-shadow: 0 0 30px #ff00ff;
+            box-shadow: 0 0 50px #ff00ff, 0 0 100px #00ffff;
             flex-wrap: wrap;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .controls::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            z-index: -1;
+            border-radius: 52px;
+            animation: rotateBorder 4s linear infinite;
+            filter: blur(10px);
+        }
+
+        @keyframes rotateBorder {
+            0% { filter: blur(10px) hue-rotate(0deg); }
+            100% { filter: blur(10px) hue-rotate(360deg); }
         }
 
         .controls select {
             font-family: 'Press Start 2P', cursive;
-            padding: 8px 12px;
-            font-size: 0.7rem;
-            background: #000;
+            padding: 12px 18px;
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.9);
             color: #fff;
             border: 3px solid #00ffff;
-            border-radius: 10px;
-            max-width: 140px;
+            border-radius: 15px;
+            width: 180px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%2300ffff'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .controls select:hover {
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px #00ffff;
+            transform: scale(1.05);
+        }
+
+        .controls select:focus {
+            outline: none;
+            box-shadow: 0 0 30px #ff00ff;
         }
 
         .swap-btn {
             background: linear-gradient(45deg, #ff00ff, #00ffff);
             border: none;
-            color: #fff;
+            color: #000;
             font-family: 'Press Start 2P', cursive;
-            font-size: 1.2rem;
-            padding: 10px 15px;
+            font-size: 1.5rem;
+            padding: 15px 20px;
             border-radius: 50%;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 0 20px #ff00ff;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 30px #ff00ff, 0 0 60px #00ffff;
+            position: relative;
+            overflow: hidden;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .swap-btn:hover {
-            transform: rotate(180deg) scale(1.1);
-            box-shadow: 0 0 30px #00ffff;
+            transform: rotate(180deg) scale(1.15);
+            box-shadow: 0 0 40px #ffff00, 0 0 80px #ff00ff;
+        }
+
+        .swap-btn::before,
+        .install-btn::before,
+        .qr-btn::before,
+        .test-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transform: translateX(-100%);
+        }
+
+        .swap-btn:hover::before,
+        .install-btn:hover::before,
+        .qr-btn:hover::before,
+        .test-btn:hover::before {
+            animation: buttonShine 0.8s forwards;
+        }
+
+        @keyframes buttonShine {
+            100% { transform: translateX(100%); }
         }
 
         .response-box {
-            background: rgba(0, 0, 0, 0.75);
-            border: 8px solid #ff00ff;
-            border-radius: 25px;
-            padding: 30px;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 51, 0.9));
+            border: 10px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00) 1;
+            border-radius: 35px;
+            padding: 40px;
             width: 100%;
-            max-width: 820px;
+            max-width: 900px;
             text-align: center;
-            box-shadow: 0 0 40px #ff00ff, 0 0 80px #00ffff, 0 0 120px #ffff00;
-            animation: borderGlow 1.8s infinite alternate ease-in-out;
+            box-shadow: 0 0 60px #ff00ff, 0 0 120px #00ffff, 0 0 180px #ffff00, inset 0 0 40px rgba(255, 255, 255, 0.1);
+            animation: borderPulse 3s infinite alternate, glowBox 5s infinite linear;
             position: relative;
             z-index: 2;
+            overflow: hidden;
         }
 
-        @keyframes borderGlow {
-            from { border-color: #ff00ff; box-shadow: 0 0 40px #ff00ff, 0 0 80px #00ffff; }
-            to   { border-color: #00ffff; box-shadow: 0 0 40px #00ffff, 0 0 80px #ffff00; }
+        .response-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 30%, rgba(255, 0, 255, 0.1) 70%);
+            z-index: -1;
+        }
+
+        @keyframes borderPulse {
+            0% { border-image-source: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00); }
+            50% { border-image-source: linear-gradient(45deg, #ffff00, #ff00ff, #00ffff); }
+            100% { border-image-source: linear-gradient(45deg, #00ffff, #ffff00, #ff00ff); }
+        }
+
+        @keyframes glowBox {
+            0% { box-shadow: 0 0 60px #ff00ff, 0 0 120px #00ffff, 0 0 180px #ffff00; }
+            33% { box-shadow: 0 0 70px #ffff00, 0 0 140px #ff00ff, 0 0 200px #00ffff; }
+            66% { box-shadow: 0 0 80px #00ffff, 0 0 160px #ffff00, 0 0 220px #ff00ff; }
+            100% { box-shadow: 0 0 60px #ff00ff, 0 0 120px #00ffff, 0 0 180px #ffff00; }
         }
 
         .text-container {
             position: relative;
             display: inline-block;
             width: 100%;
-            min-height: 180px;
+            min-height: 220px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            overflow: hidden;
+            padding: 25px;
+        }
+
+        .text-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 0, 255, 0.05) 2px,
+                rgba(255, 0, 255, 0.05) 4px
+            );
+            pointer-events: none;
+            z-index: 1;
         }
 
         .gem-text {
-            font-size: 1.5rem;
-            line-height: 1.5;
-            animation: twinkleText 1.2s infinite alternate ease-in-out, colorCycle 5s infinite linear;
-            text-shadow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 70px #ff00ff;
+            font-size: 1.8rem;
+            line-height: 1.6;
+            text-shadow: 0 0 25px currentColor, 0 0 50px currentColor, 0 0 75px rgba(255, 0, 255, 0.8);
             outline: none;
-            min-height: 180px;
+            min-height: 220px;
             cursor: text;
-            padding: 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
+            background: transparent;
+            border: none;
             user-select: text;
             -webkit-user-select: text;
             word-wrap: break-word;
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            border-radius: 15px;
+            animation: textShimmer 3s infinite alternate;
+            caret-color: #ffff00;
         }
 
-        @keyframes twinkleText {
-            0%   { opacity: 0.85; transform: scale(0.98); }
-            100% { opacity: 1;    transform: scale(1.02); }
+        @keyframes textShimmer {
+            0% { filter: brightness(1) contrast(1); }
+            100% { filter: brightness(1.2) contrast(1.1); }
         }
 
-        @keyframes colorCycle {
-            0%    { color: #ff00ff; }
-            20%   { color: #00ffff; }
-            40%   { color: #ffff00; }
-            60%   { color: #00ff00; }
-            80%   { color: #ff8800; }
-            100%  { color: #ff00ff; }
-        }
-
-        #sourceText { 
-            position: relative; 
-            z-index: 1; 
+        #sourceText {
+            position: relative;
+            z-index: 2;
+            opacity: 1;
+            color: #ffffff;
         }
 
         #targetText {
             position: absolute;
-            top: 0; 
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 25px;
+            left: 25px;
+            width: calc(100% - 50px);
+            height: calc(100% - 50px);
             opacity: 0;
-            filter: blur(20px);
-            z-index: 2;
+            filter: blur(30px) brightness(1.5);
+            z-index: 3;
             pointer-events: none;
             box-sizing: border-box;
+            transform: scale(0.95);
         }
 
-        /* Language-specific fonts */
         .font-default {
             font-family: 'Press Start 2P', 'Noto Sans', sans-serif;
         }
-        
+
+        .font-latin,
+        .font-cyrillic,
+        .font-greek {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 2rem !important;
+            font-weight: 700;
+        }
+
         .font-arabic {
             font-family: 'Noto Sans Arabic', sans-serif;
-            font-size: 1.3rem !important;
+            font-size: 2rem !important;
+            font-weight: 700;
         }
-        
+
         .font-hebrew {
             font-family: 'Noto Sans Hebrew', sans-serif;
-            font-size: 1.3rem !important;
+            font-size: 2rem !important;
+            font-weight: 700;
         }
-        
+
         .font-japanese {
             font-family: 'Noto Sans JP', sans-serif;
-            font-size: 1.3rem !important;
+            font-size: 2rem !important;
+            font-weight: 700;
         }
-        
+
         .font-korean {
             font-family: 'Noto Sans KR', sans-serif;
-            font-size: 1.3rem !important;
+            font-size: 2rem !important;
+            font-weight: 700;
         }
-        
+
         .font-chinese {
             font-family: 'Noto Sans SC', sans-serif;
-            font-size: 1.3rem !important;
+            font-size: 2rem !important;
+            font-weight: 700;
         }
-        
+
         .font-thai {
             font-family: 'Noto Sans Thai', sans-serif;
-            font-size: 1.3rem !important;
+            font-size: 2rem !important;
+            font-weight: 700;
         }
-        
+
         .font-hindi {
             font-family: 'Noto Sans Devanagari', sans-serif;
-            font-size: 1.3rem !important;
-        }
-        
-        .font-russian {
-            font-family: 'Press Start 2P', 'Noto Sans', sans-serif;
-        }
-        
-        .font-greek {
-            font-family: 'Press Start 2P', 'Noto Sans', sans-serif;
+            font-size: 2rem !important;
+            font-weight: 700;
         }
 
         .gem {
             position: fixed;
-            font-size: 2rem;
-            animation: floatGem 7s linear infinite;
+            font-size: 3rem;
+            animation: floatGem 12s linear infinite;
             z-index: 1;
-            opacity: 0.95;
-            text-shadow: 0 0 25px #ffffff;
+            opacity: 0.8;
+            text-shadow: 0 0 30px #ffffff, 0 0 60px currentColor;
+            pointer-events: none;
         }
 
         @keyframes floatGem {
-            0%   { transform: translateY(110vh) rotate(0deg); }
-            100% { transform: translateY(-110vh) rotate(900deg); }
+            0% {
+                transform: translateY(120vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                transform: translateY(-120vh) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
         }
 
         .info {
-            font-size: 0.7rem;
-            max-width: 700px;
+            font-size: 0.9rem;
+            max-width: 800px;
             text-align: center;
-            opacity: 0.8;
+            opacity: 0.9;
             z-index: 10;
-            font-family: 'Press Start 2P', cursive;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 30px;
+            border-radius: 25px;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 30px #00ffff;
+            line-height: 1.8;
+            letter-spacing: 1px;
         }
 
         .status {
-            font-size: 0.7rem;
-            color: #00ffff;
-            margin-top: 10px;
-            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            color: #ffff00;
+            margin-top: 20px;
+            text-shadow: 0 0 15px #ffff00;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: 2px solid #ffff00;
+            box-shadow: 0 0 20px #ffff00;
+            animation: pulseStatus 2s infinite alternate;
+        }
+
+        @keyframes pulseStatus {
+            0% { opacity: 0.7; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1.02); }
         }
 
         .button-row {
             display: flex;
-            gap: 10px;
+            gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
             z-index: 10;
+            margin-top: 10px;
+        }
+
+        .install-btn,
+        .qr-btn,
+        .test-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            color: #000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            padding: 15px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 25px #ff00ff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 1px;
+        }
+
+        .install-btn:hover,
+        .qr-btn:hover,
+        .test-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 0 40px #ffff00, 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .install-btn {
             display: none;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            border: none;
-            color: #fff;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 0 20px #ff00ff;
-        }
-
-        .install-btn:hover {
-            box-shadow: 0 0 30px #00ffff;
-            transform: scale(1.05);
+            background: linear-gradient(45deg, #ff00ff, #8800ff);
         }
 
         .qr-btn {
-            display: block;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            border: none;
-            color: #fff;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 0 20px #00ffff;
+            background: linear-gradient(45deg, #00ffff, #0088ff);
         }
 
-        .qr-btn:hover {
-            box-shadow: 0 0 30px #ff00ff;
-            transform: scale(1.05);
+        .test-btn {
+            background: linear-gradient(45deg, #ffff00, #ff8800);
         }
 
         .qr-popup {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(10px);
         }
 
         .qr-popup.active {
             display: flex;
+            animation: popupFadeIn 0.5s ease-out;
+        }
+
+        @keyframes popupFadeIn {
+            0% { opacity: 0; backdrop-filter: blur(0); }
+            100% { opacity: 1; backdrop-filter: blur(10px); }
         }
 
         .qr-content {
             background: linear-gradient(145deg, #1a0033, #000);
-            border: 4px solid #ff00ff;
-            border-radius: 25px;
-            padding: 30px;
+            border: 8px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff) 1;
+            border-radius: 35px;
+            padding: 40px;
             text-align: center;
-            box-shadow: 0 0 40px #ff00ff, 0 0 80px #00ffff;
-            animation: borderGlow 1.8s infinite alternate ease-in-out;
+            box-shadow: 0 0 60px #ff00ff, 0 0 120px #00ffff;
+            animation: borderPulse 3s infinite alternate;
             position: relative;
+            max-width: 90%;
         }
 
         .qr-content h2 {
-            font-size: 1rem;
-            margin-bottom: 20px;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
             color: #00ffff;
-            font-family: 'Press Start 2P', cursive;
+            text-shadow: 0 0 20px #00ffff;
         }
 
         .qr-content img {
-            border-radius: 15px;
-            border: 4px solid #00ffff;
-            box-shadow: 0 0 20px #00ffff;
+            border-radius: 20px;
+            border: 6px solid #00ffff;
+            box-shadow: 0 0 40px #00ffff;
+            max-width: 100%;
+            height: auto;
+            background: #fff;
         }
 
         .qr-content p {
-            margin-top: 20px;
-            font-size: 0.7rem;
+            margin-top: 25px;
+            font-size: 0.8rem;
             color: #ff00ff;
-            font-family: 'Press Start 2P', cursive;
+            text-shadow: 0 0 15px #ff00ff;
         }
 
         .qr-close {
             position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5rem;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
             color: #ff00ff;
             cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .qr-close:hover {
             color: #00ffff;
+            transform: rotate(90deg) scale(1.2);
+            background: rgba(255, 0, 255, 0.2);
         }
 
-        /* Right-to-left languages */
         .rtl {
             direction: rtl;
             text-align: right;
@@ -356,498 +541,649 @@
             text-align: left;
         }
 
-        .test-btn {
-            background: linear-gradient(45deg, #ffff00, #ff8800);
-            border: none;
-            color: #000;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            padding: 8px 15px;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 0 15px #ffff00;
+        .gem-text:empty::before {
+            content: attr(data-placeholder);
+            color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
         }
 
-        .test-btn:hover {
-            box-shadow: 0 0 25px #ff8800;
-            transform: scale(1.05);
+        @media (max-width: 768px) {
+            .app-title { font-size: 1.3rem; padding: 12px 20px; }
+            .controls { padding: 15px 20px; gap: 10px; }
+            .controls select { width: 140px; font-size: 0.7rem; padding: 10px 12px; }
+            .swap-btn { width: 60px; height: 60px; font-size: 1.3rem; }
+            .response-box { padding: 25px; border-radius: 25px; }
+            .gem-text { font-size: 1.4rem; min-height: 180px; }
+            .font-latin,
+            .font-cyrillic,
+            .font-greek,
+            .font-arabic,
+            .font-hebrew,
+            .font-japanese,
+            .font-korean,
+            .font-chinese,
+            .font-thai,
+            .font-hindi { font-size: 1.6rem !important; }
+            .info { font-size: 0.7rem; padding: 12px 20px; }
+            .status { font-size: 0.7rem; padding: 10px 20px; }
+            .install-btn,
+            .qr-btn,
+            .test-btn { font-size: 0.7rem; padding: 12px 20px; }
         }
 
-        @media (max-width: 600px) {
-            .gem-text { font-size: 1.2rem; }
-            .app-title { font-size: 0.9rem; }
-            .controls { padding: 10px 15px; }
-            .controls select { font-size: 0.6rem; padding: 6px 8px; }
-            .response-box { padding: 20px; }
-            .font-arabic, .font-hebrew, .font-japanese, .font-korean, .font-chinese, .font-thai, .font-hindi {
-                font-size: 1.1rem !important;
-            }
+        @media (max-width: 480px) {
+            body { padding: 15px; gap: 15px; }
+            .app-title { font-size: 1rem; }
+            .controls { flex-direction: column; border-radius: 30px; }
+            .controls select { width: 100%; max-width: 250px; }
+            .gem-text { font-size: 1.2rem; min-height: 150px; }
+            .font-latin,
+            .font-cyrillic,
+            .font-greek,
+            .font-arabic,
+            .font-hebrew,
+            .font-japanese,
+            .font-korean,
+            .font-chinese,
+            .font-thai,
+            .font-hindi { font-size: 1.4rem !important; }
         }
     </style>
 </head>
 <body>
+    <div class="gem" style="left:5%; animation-delay:0s; color:#ff00ff;">💎</div>
+    <div class="gem" style="left:15%; animation-delay:1.2s; color:#00ffff;">✨</div>
+    <div class="gem" style="left:25%; animation-delay:2.5s; color:#ffff00;">🔷</div>
+    <div class="gem" style="left:35%; animation-delay:0.8s; color:#ff00ff;">💎</div>
+    <div class="gem" style="left:45%; animation-delay:3.8s; color:#00ff00;">✨</div>
+    <div class="gem" style="left:55%; animation-delay:1.5s; color:#ff8800;">🔶</div>
+    <div class="gem" style="left:65%; animation-delay:2.9s; color:#ff00ff;">💎</div>
+    <div class="gem" style="left:75%; animation-delay:0.3s; color:#00ffff;">✨</div>
+    <div class="gem" style="left:85%; animation-delay:3.2s; color:#ffff00;">🔷</div>
+    <div class="gem" style="left:95%; animation-delay:1.8s; color:#ff00ff;">✨</div>
 
-    <div class="gem" style="left:8%; animation-delay:0s;">💎</div>
-    <div class="gem" style="left:18%; animation-delay:0.8s;">✨</div>
-    <div class="gem" style="left:28%; animation-delay:2.1s;">💎</div>
-    <div class="gem" style="left:39%; animation-delay:1.4s;">🪩</div>
-    <div class="gem" style="left:52%; animation-delay:3.3s;">✨</div>
-    <div class="gem" style="left:61%; animation-delay:0.5s;">💎</div>
-    <div class="gem" style="left:72%; animation-delay:2.7s;">🪩</div>
-    <div class="gem" style="left:83%; animation-delay:1.9s;">✨</div>
-    <div class="gem" style="left:91%; animation-delay:4.1s;">💎</div>
-
-    <div class="app-title">💎 International Jewelry Box 💎</div>
+    <div class="app-title">INTERNATIONAL JEWELRY BOX</div>
 
     <div class="controls">
-        <select id="sourceLang">
-            <option value="auto">🔮 Auto-Detect</option>
-            <option value="en">English 🇺🇸</option>
-            <option value="es">Spanish 🇪🇸</option>
-            <option value="fr">French 🇫🇷</option>
-            <option value="de">German 🇩🇪</option>
-            <option value="it">Italian 🇮🇹</option>
-            <option value="pt">Portuguese 🇵🇹</option>
-            <option value="ru">Russian 🇷🇺</option>
-            <option value="ja">Japanese 🇯🇵</option>
-            <option value="ko">Korean 🇰🇷</option>
-            <option value="zh">Chinese 🇨🇳</option>
-            <option value="ar">Arabic 🇸🇦</option>
-            <option value="el">Greek 🇬🇷</option>
-            <option value="hi">Hindi 🇮🇳</option>
-            <option value="tr">Turkish 🇹🇷</option>
-            <option value="vi">Vietnamese 🇻🇳</option>
-            <option value="th">Thai 🇹🇭</option>
-            <option value="pl">Polish 🇵🇱</option>
-            <option value="nl">Dutch 🇳🇱</option>
-            <option value="sv">Swedish 🇸🇪</option>
-            <option value="he">Hebrew 🇮🇱</option>
-            <option value="id">Indonesian 🇮🇩</option>
-            <option value="uk">Ukrainian 🇺🇦</option>
-            <option value="cs">Czech 🇨🇿</option>
-            <option value="ro">Romanian 🇷🇴</option>
-            <option value="hu">Hungarian 🇭🇺</option>
-            <option value="tl">Filipino 🇵🇭</option>
+        <select id="sourceLang" aria-label="Source language">
+            <option value="auto">AUTO-DETECT</option>
+            <option value="en">ENGLISH</option>
+            <option value="es">SPANISH</option>
+            <option value="fr">FRENCH</option>
+            <option value="de">GERMAN</option>
+            <option value="it">ITALIAN</option>
+            <option value="pt">PORTUGUESE</option>
+            <option value="ru">RUSSIAN</option>
+            <option value="ja">JAPANESE</option>
+            <option value="ko">KOREAN</option>
+            <option value="zh">CHINESE</option>
+            <option value="ar">ARABIC</option>
+            <option value="el">GREEK</option>
+            <option value="hi">HINDI</option>
+            <option value="tr">TURKISH</option>
+            <option value="vi">VIETNAMESE</option>
+            <option value="th">THAI</option>
+            <option value="pl">POLISH</option>
+            <option value="nl">DUTCH</option>
+            <option value="sv">SWEDISH</option>
+            <option value="he">HEBREW</option>
+            <option value="id">INDONESIAN</option>
+            <option value="uk">UKRAINIAN</option>
+            <option value="cs">CZECH</option>
+            <option value="ro">ROMANIAN</option>
+            <option value="hu">HUNGARIAN</option>
+            <option value="tl">FILIPINO</option>
         </select>
 
-        <button class="swap-btn" id="swapBtn" title="Swap languages">⇄</button>
+        <button class="swap-btn" id="swapBtn" title="Swap languages" aria-label="Swap languages">⇄</button>
 
-        <select id="targetLang">
-            <option value="en">English 🇺🇸</option>
-            <option value="es">Spanish 🇪🇸</option>
-            <option value="fr">French 🇫🇷</option>
-            <option value="de">German 🇩🇪</option>
-            <option value="it">Italian 🇮🇹</option>
-            <option value="pt">Portuguese 🇵🇹</option>
-            <option value="ru">Russian 🇷🇺</option>
-            <option value="ja">Japanese 🇯🇵</option>
-            <option value="ko">Korean 🇰🇷</option>
-            <option value="zh">Chinese 🇨🇳</option>
-            <option value="ar">Arabic 🇸🇦</option>
-            <option value="el">Greek 🇬🇷</option>
-            <option value="hi">Hindi 🇮🇳</option>
-            <option value="tr">Turkish 🇹🇷</option>
-            <option value="vi">Vietnamese 🇻🇳</option>
-            <option value="th">Thai 🇹🇭</option>
-            <option value="pl">Polish 🇵🇱</option>
-            <option value="nl">Dutch 🇳🇱</option>
-            <option value="sv">Swedish 🇸🇪</option>
-            <option value="he">Hebrew 🇮🇱</option>
-            <option value="id">Indonesian 🇮🇩</option>
-            <option value="uk">Ukrainian 🇺🇦</option>
-            <option value="cs">Czech 🇨🇿</option>
-            <option value="ro">Romanian 🇷🇴</option>
-            <option value="hu">Hungarian 🇭🇺</option>
-            <option value="tl">Filipino 🇵🇭</option>
+        <select id="targetLang" aria-label="Target language">
+            <option value="en">ENGLISH</option>
+            <option value="es">SPANISH</option>
+            <option value="fr">FRENCH</option>
+            <option value="de">GERMAN</option>
+            <option value="it">ITALIAN</option>
+            <option value="pt">PORTUGUESE</option>
+            <option value="ru">RUSSIAN</option>
+            <option value="ja">JAPANESE</option>
+            <option value="ko">KOREAN</option>
+            <option value="zh">CHINESE</option>
+            <option value="ar">ARABIC</option>
+            <option value="el">GREEK</option>
+            <option value="hi">HINDI</option>
+            <option value="tr">TURKISH</option>
+            <option value="vi">VIETNAMESE</option>
+            <option value="th">THAI</option>
+            <option value="pl">POLISH</option>
+            <option value="nl">DUTCH</option>
+            <option value="sv">SWEDISH</option>
+            <option value="he">HEBREW</option>
+            <option value="id">INDONESIAN</option>
+            <option value="uk">UKRAINIAN</option>
+            <option value="cs">CZECH</option>
+            <option value="ro">ROMANIAN</option>
+            <option value="hu">HUNGARIAN</option>
+            <option value="tl">FILIPINO</option>
         </select>
-        
-        <button class="test-btn" id="testBtn" title="Test language input">🔤 Test</button>
+
+        <button class="test-btn" id="testBtn" title="Test language input">TEST INPUT</button>
     </div>
 
     <div class="response-box">
         <div class="text-container">
-            <div id="sourceText" class="gem-text font-default ltr" contenteditable="true" spellcheck="false" autocorrect="off" autocapitalize="off"></div>
+            <div
+                id="sourceText"
+                class="gem-text font-default ltr"
+                contenteditable="true"
+                spellcheck="false"
+                autocorrect="off"
+                autocapitalize="off"
+                data-placeholder="CLICK HERE AND START TYPING..."
+                style="caret-color: #ffff00;"
+            ></div>
             <div id="targetText" class="gem-text font-default ltr"></div>
         </div>
-        <div id="status" class="status"></div>
-    </div>
-
-    <div class="button-row">
-        <button class="install-btn" id="installBtn">📱 Install App</button>
-        <button class="qr-btn" id="qrBtn">📲 Share QR Code</button>
+        <div id="status" class="status">✨ READY - CLICK ABOVE AND TYPE! ✨</div>
     </div>
 
     <div class="info">
-        type anything → wait 4 seconds → ✨ magic ✨<br>
-        tap ⇄ to swap 💎 | tap 🔤 to test language input
+        TYPE ANYTHING -> WAIT 4 SECONDS -> MAGIC TRANSLATION<br>
+        TAP ⇄ TO SWAP LANGUAGES | TAP TEST INPUT TO LOAD A SAMPLE
+    </div>
+
+    <div class="button-row">
+        <button class="install-btn" id="installBtn">INSTALL APP</button>
+        <button class="qr-btn" id="qrBtn">SHARE QR CODE</button>
     </div>
 
     <div class="qr-popup" id="qrPopup">
         <div class="qr-content">
             <span class="qr-close" id="qrClose">✕</span>
-            <h2>📲 Scan to Open</h2>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://dacameragirl.github.io/international-jewelry-box/" alt="QR Code">
-            <p>International Jewelry Box 💎</p>
+            <h2>SCAN TO OPEN JEWELRY BOX</h2>
+            <img id="qrImage" alt="QR Code for the current app URL">
+            <p>INTERNATIONAL JEWELRY BOX | TRANSLATE ANY LANGUAGE ✨</p>
         </div>
     </div>
 
     <script>
-        var source = document.getElementById('sourceText');
-        var target = document.getElementById('targetText');
-        var sourceLang = document.getElementById('sourceLang');
-        var targetLang = document.getElementById('targetLang');
-        var swapBtn = document.getElementById('swapBtn');
-        var testBtn = document.getElementById('testBtn');
-        var status = document.getElementById('status');
-        var installBtn = document.getElementById('installBtn');
-        var qrBtn = document.getElementById('qrBtn');
-        var qrPopup = document.getElementById('qrPopup');
-        var qrClose = document.getElementById('qrClose');
+        const source = document.getElementById('sourceText');
+        const target = document.getElementById('targetText');
+        const sourceLang = document.getElementById('sourceLang');
+        const targetLang = document.getElementById('targetLang');
+        const swapBtn = document.getElementById('swapBtn');
+        const testBtn = document.getElementById('testBtn');
+        const status = document.getElementById('status');
+        const installBtn = document.getElementById('installBtn');
+        const qrBtn = document.getElementById('qrBtn');
+        const qrPopup = document.getElementById('qrPopup');
+        const qrClose = document.getElementById('qrClose');
+        const qrImage = document.getElementById('qrImage');
 
-        var timeout = null;
-        var isAnimating = false;
-        var WAIT_TIME = 4000;
-        var FADE_DURATION = 6500;
-        var deferredPrompt = null;
+        let timeout = null;
+        let isAnimating = false;
+        let deferredPrompt = null;
+        let translationJobId = 0;
 
-        // Language font mapping
+        const WAIT_TIME = 4000;
+        const FADE_DURATION = 7000;
+
         const fontMapping = {
-            'en': 'font-default',
-            'es': 'font-default',
-            'fr': 'font-default',
-            'de': 'font-default',
-            'it': 'font-default',
-            'pt': 'font-default',
-            'ru': 'font-russian',
-            'ja': 'font-japanese',
-            'ko': 'font-korean',
-            'zh': 'font-chinese',
-            'ar': 'font-arabic',
-            'el': 'font-greek',
-            'hi': 'font-hindi',
-            'tr': 'font-default',
-            'vi': 'font-default',
-            'th': 'font-thai',
-            'pl': 'font-default',
-            'nl': 'font-default',
-            'sv': 'font-default',
-            'he': 'font-hebrew',
-            'id': 'font-default',
-            'uk': 'font-russian',
-            'cs': 'font-default',
-            'ro': 'font-default',
-            'hu': 'font-default',
-            'tl': 'font-default',
-            'auto': 'font-default'
+            auto: 'font-default',
+            en: 'font-default',
+            es: 'font-latin',
+            fr: 'font-latin',
+            de: 'font-latin',
+            it: 'font-latin',
+            pt: 'font-latin',
+            ru: 'font-cyrillic',
+            ja: 'font-japanese',
+            ko: 'font-korean',
+            zh: 'font-chinese',
+            ar: 'font-arabic',
+            el: 'font-greek',
+            hi: 'font-hindi',
+            tr: 'font-latin',
+            vi: 'font-latin',
+            th: 'font-thai',
+            pl: 'font-latin',
+            nl: 'font-latin',
+            sv: 'font-latin',
+            he: 'font-hebrew',
+            id: 'font-latin',
+            uk: 'font-cyrillic',
+            cs: 'font-latin',
+            ro: 'font-latin',
+            hu: 'font-latin',
+            tl: 'font-latin'
         };
 
-        // RTL languages
-        const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
+        const rtlLanguages = ['ar', 'he'];
 
-        // QR Code popup
-        qrBtn.addEventListener('click', function() {
-            qrPopup.classList.add('active');
-        });
+        const testPhrases = {
+            en: 'Hey, how are you doing today? This is a test sentence in English.',
+            es: '¡Hola! ¿Cómo estás hoy? Este es un ejemplo de texto en español.',
+            fr: 'Bonjour ! Comment ça va aujourd\'hui ? Ceci est un exemple de texte en français.',
+            de: 'Hallo! Wie geht es dir heute? Dies ist ein Beispieltext auf Deutsch.',
+            it: 'Ciao! Come stai oggi? Questo è un esempio di testo in italiano.',
+            pt: 'Olá! Como você está hoje? Este é um exemplo de texto em português.',
+            ru: 'Привет! Как ты сегодня? Это пример текста на русском языке.',
+            ja: 'こんにちは！今日はどうですか？これは日本語のテキストの例です。',
+            ko: '안녕하세요! 오늘 어떠세요? 이것은 한국어 텍스트의 예입니다.',
+            zh: '你好！你今天好吗？这是一个中文文本的例子。',
+            ar: 'مرحبا! كيف حالك اليوم؟ هذا مثال على نص باللغة العربية.',
+            el: 'Γεια σου! Πώς είσαι σήμερα; Αυτό είναι ένα παράδειγμα κειμένου στα ελληνικά.',
+            hi: 'नमस्ते! आप आज कैसे हैं? यह हिंदी पाठ का एक उदाहरण है।',
+            tr: 'Merhaba! Bugün nasılsın? Bu Türkçe metin örneğidir.',
+            vi: 'Xin chào! Hôm nay bạn thế nào? Đây là một ví dụ về văn bản tiếng Việt.',
+            th: 'สวัสดี! วันนี้เป็นอย่างไรบ้าง? นี่คือตัวอย่างข้อความภาษาไทย',
+            pl: 'Cześć! Jak się masz dzisiaj? To jest przykład tekstu po polsku.',
+            nl: 'Hallo! Hoe gaat het vandaag? Dit is een voorbeeld van tekst in het Nederlands.',
+            sv: 'Hej! Hur mår du idag? Det här är ett exempel på text på svenska.',
+            he: 'שלום! מה שלומך היום? זוהי דוגמה לטקסט בעברית.',
+            id: 'Halo! Apa kabar hari ini? Ini adalah contoh teks dalam bahasa Indonesia.',
+            uk: 'Привіт! Як ти сьогодні? Це приклад тексту українською мовою.',
+            cs: 'Ahoj! Jak se dnes máš? Toto je ukázka textu v češtině.',
+            ro: 'Salut! Ce mai faci astăzi? Acesta este un exemplu de text în română.',
+            hu: 'Szia! Hogy vagy ma? Ez egy magyar nyelvű szövegpélda.',
+            tl: 'Kumusta! Kamusta ka ngayon? Ito ay isang halimbawang teksto sa Filipino.'
+        };
 
-        qrClose.addEventListener('click', function() {
-            qrPopup.classList.remove('active');
-        });
-
-        qrPopup.addEventListener('click', function(e) {
-            if (e.target === qrPopup) {
-                qrPopup.classList.remove('active');
+        function detectDisplayLanguage(text) {
+            if (/[\u0590-\u05FF]/.test(text)) {
+                return 'he';
             }
-        });
 
-        // PWA Install prompt
-        window.addEventListener('beforeinstallprompt', function(e) {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBtn.style.display = 'block';
-        });
-
-        installBtn.addEventListener('click', async function() {
-            if (!deferredPrompt) return;
-            deferredPrompt.prompt();
-            var result = await deferredPrompt.userChoice;
-            if (result.outcome === 'accepted') {
-                status.textContent = '💎 App installed!';
+            if (/[\u0600-\u06FF]/.test(text)) {
+                return 'ar';
             }
-            deferredPrompt = null;
-            installBtn.style.display = 'none';
-        });
 
-        // Register service worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then(function() { console.log('SW registered'); })
-                .catch(function(err) { console.log('SW failed', err); });
+            if (/[\u0900-\u097F]/.test(text)) {
+                return 'hi';
+            }
+
+            if (/[\u0E00-\u0E7F]/.test(text)) {
+                return 'th';
+            }
+
+            if (/[\u3040-\u30FF]/.test(text)) {
+                return 'ja';
+            }
+
+            if (/[\uAC00-\uD7AF]/.test(text)) {
+                return 'ko';
+            }
+
+            if (/[\u4E00-\u9FFF]/.test(text)) {
+                return 'zh';
+            }
+
+            if (/[\u0370-\u03FF]/.test(text)) {
+                return 'el';
+            }
+
+            if (/[\u0400-\u04FF]/.test(text)) {
+                return 'ru';
+            }
+
+            return 'en';
         }
 
-        // Function to update font and direction
-        function updateInputLanguage(langCode) {
-            const sourceElement = document.getElementById('sourceText');
-            const targetElement = document.getElementById('targetText');
-            
-            // Remove all font and direction classes
-            sourceElement.className = 'gem-text';
-            targetElement.className = 'gem-text';
-            
-            // Add font class
-            const fontClass = fontMapping[langCode] || 'font-default';
-            sourceElement.classList.add(fontClass);
-            targetElement.classList.add(fontClass);
-            
-            // Add direction class
-            if (rtlLanguages.includes(langCode)) {
-                sourceElement.classList.add('rtl');
-                targetElement.classList.add('rtl');
-            } else {
-                sourceElement.classList.add('ltr');
-                targetElement.classList.add('ltr');
-            }
-            
-            // Set lang attribute for keyboard hints
-            sourceElement.setAttribute('lang', langCode);
-            targetElement.setAttribute('lang', targetLang.value);
-        }
-
-        swapBtn.addEventListener('click', function() {
-            var sourceVal = sourceLang.value;
-            var targetVal = targetLang.value;
-            
-            if (sourceVal === 'auto') {
-                status.textContent = '🤔 Can\'t swap auto-detect!';
+        function updateStatus(message) {
+            status.textContent = message;
+            if (!message) {
                 return;
             }
-            
-            sourceLang.value = targetVal;
-            targetLang.value = sourceVal;
-            
-            // Update font and direction
-            updateInputLanguage(sourceLang.value);
-            
-            status.textContent = '🔄 Languages swapped!';
-        });
 
-        // Test language input button
-        testBtn.addEventListener('click', function() {
-            const testPhrases = {
-                'es': 'Hola, ¿cómo estás?',
-                'fr': 'Bonjour, comment ça va?',
-                'de': 'Hallo, wie geht es dir?',
-                'ja': 'こんにちは、元気ですか？',
-                'ar': 'مرحبا، كيف حالك؟',
-                'ru': 'Привет, как дела?',
-                'zh': '你好，你怎么样？',
-                'ko': '안녕하세요, 어떻게 지내세요?',
-                'hi': 'नमस्ते, आप कैसे हैं?',
-                'he': 'שלום, מה שלומך?',
-                'th': 'สวัสดี เป็นอย่างไรบ้าง?',
-                'it': 'Ciao, come stai?',
-                'pt': 'Olá, como você está?',
-                'nl': 'Hallo, hoe gaat het?',
-                'sv': 'Hej, hur mår du?',
-                'pl': 'Cześć, jak się masz?',
-                'tr': 'Merhaba, nasılsın?',
-                'vi': 'Xin chào, bạn khỏe không?'
+            status.style.animation = 'none';
+            window.setTimeout(() => {
+                status.style.animation = '';
+            }, 10);
+        }
+
+        function applyLanguageStyle(element, langCode) {
+            element.className = 'gem-text';
+            element.classList.add(fontMapping[langCode] || 'font-default');
+            element.classList.add(rtlLanguages.includes(langCode) ? 'rtl' : 'ltr');
+
+            if (langCode === 'auto') {
+                element.removeAttribute('lang');
+                return;
+            }
+
+            element.setAttribute('lang', langCode);
+        }
+
+        function updateFontAndDirection(langCode) {
+            const effectiveLanguage = langCode === 'auto'
+                ? detectDisplayLanguage(getSourceText())
+                : langCode;
+
+            applyLanguageStyle(source, effectiveLanguage);
+        }
+
+        function getSourceText() {
+            return (source.textContent || source.innerText || '').trim();
+        }
+
+        function buildShareUrl() {
+            return new URL('./', window.location.href).href;
+        }
+
+        function buildQrCodeUrl() {
+            return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(buildShareUrl())}&color=ff00ff&bgcolor=1a0033&format=svg`;
+        }
+
+        function refreshQrCode() {
+            qrImage.src = buildQrCodeUrl();
+            qrImage.onerror = () => {
+                qrImage.onerror = null;
+                qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(buildShareUrl())}`;
             };
-            
-            const lang = sourceLang.value;
-            if (testPhrases[lang]) {
-                source.textContent = testPhrases[lang];
-                status.textContent = `✅ Test phrase for ${lang} inserted`;
-                
-                // Trigger translation after 1 second
-                setTimeout(async function() {
-                    const from = sourceLang.value;
-                    const to = targetLang.value;
-                    const translated = await translateText(source.textContent, from, to);
-                    triggerFade(translated);
-                }, 1000);
-            } else {
-                status.textContent = '⚠️ No test phrase for this language';
-            }
-        });
+        }
 
-        // Update font when source language changes
-        sourceLang.addEventListener('change', function() {
-            if (sourceLang.value !== 'auto') {
-                updateInputLanguage(sourceLang.value);
-            }
-        });
+        function createFloatingGems() {
+            const gemTypes = ['💎', '✨', '🔷', '🔶'];
 
-        // Main translation function using Google Translate
+            for (let index = 0; index < 5; index += 1) {
+                const gem = document.createElement('div');
+                gem.className = 'gem';
+                gem.textContent = gemTypes[Math.floor(Math.random() * gemTypes.length)];
+                gem.style.left = `${Math.random() * 100}%`;
+                gem.style.animationDelay = `${Math.random() * 5}s`;
+                gem.style.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                gem.style.fontSize = `${2 + Math.random() * 2}rem`;
+                gem.style.animationDuration = `${8 + Math.random() * 8}s`;
+                document.body.appendChild(gem);
+            }
+        }
+
+        function setupPwa() {
+            window.addEventListener('beforeinstallprompt', event => {
+                event.preventDefault();
+                deferredPrompt = event;
+                installBtn.style.display = 'flex';
+            });
+
+            window.addEventListener('appinstalled', () => {
+                updateStatus('✨ APP INSTALLED! ✨');
+                deferredPrompt = null;
+                installBtn.style.display = 'none';
+            });
+
+            installBtn.addEventListener('click', async () => {
+                if (!deferredPrompt) {
+                    return;
+                }
+
+                deferredPrompt.prompt();
+                const result = await deferredPrompt.userChoice;
+
+                if (result.outcome === 'accepted') {
+                    updateStatus('✨ APP INSTALLED! ✨');
+                } else {
+                    updateStatus('INSTALL CANCELLED');
+                }
+
+                deferredPrompt = null;
+                installBtn.style.display = 'none';
+            });
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js')
+                    .then(() => console.log('Service worker registered'))
+                    .catch(error => console.log('Service worker registration failed:', error));
+            }
+        }
+
+        function swapLanguages() {
+            const sourceValue = sourceLang.value;
+            const targetValue = targetLang.value;
+
+            if (sourceValue === 'auto') {
+                updateStatus("CAN'T SWAP AUTO-DETECT");
+                return;
+            }
+
+            sourceLang.value = targetValue;
+            targetLang.value = sourceValue;
+            updateFontAndDirection(sourceLang.value);
+            updateStatus('LANGUAGES SWAPPED');
+        }
+
         async function translateText(text, fromLang, toLang) {
-            if (!text.trim()) return text;
+            if (!text) {
+                return '';
+            }
 
-            // Check if same language selected (not auto)
             if (fromLang !== 'auto' && fromLang === toLang) {
-                status.textContent = '🤔 Same language selected!';
                 return text;
             }
 
-            status.textContent = '✨ Translating...';
+            const sourceCode = fromLang === 'auto' ? 'auto' : fromLang;
+            const targetCode = toLang;
+            const apis = [
+                {
+                    name: 'Google',
+                    url: `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceCode}&tl=${targetCode}&dt=t&q=${encodeURIComponent(text)}`
+                },
+                {
+                    name: 'MyMemory',
+                    url: `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sourceCode === 'auto' ? 'autodetect' : sourceCode}|${targetCode}`
+                },
+                {
+                    name: 'Lingva',
+                    url: `https://lingva.lunar.icu/api/v1/${sourceCode}/${targetCode}/${encodeURIComponent(text)}`
+                }
+            ];
 
-            // Use 'auto' for auto-detect, otherwise use selected language
-            var sl = (fromLang === 'auto') ? 'auto' : fromLang;
-            var tl = toLang;
+            for (const api of apis) {
+                try {
+                    const response = await fetch(api.url);
 
-            // Try Google Translate API
-            try {
-                var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + sl + '&tl=' + tl + '&dt=t&q=' + encodeURIComponent(text);
-                
-                var res = await fetch(url);
-                
-                if (res.ok) {
-                    var data = await res.json();
-                    
-                    if (data && data[0]) {
-                        var translated = '';
-                        for (var i = 0; i < data[0].length; i++) {
-                            if (data[0][i] && data[0][i][0]) {
-                                translated += data[0][i][0];
-                            }
-                        }
-                        
-                        if (translated && translated.trim() !== '') {
-                            status.textContent = '💎 Translated!';
+                    if (!response.ok) {
+                        continue;
+                    }
+
+                    const data = await response.json();
+
+                    if (api.name === 'Google' && Array.isArray(data[0])) {
+                        const translated = data[0]
+                            .map(item => item && item[0] ? item[0] : '')
+                            .join('')
+                            .trim();
+
+                        if (translated) {
                             return translated;
                         }
                     }
-                }
-            } catch (e) {
-                console.log('Google Translate error:', e);
-            }
 
-            // Backup: MyMemory API
-            try {
-                var mmFrom = (fromLang === 'auto') ? 'autodetect' : fromLang;
-                var mmUrl = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + mmFrom + '|' + toLang;
-                
-                var mmRes = await fetch(mmUrl);
-                
-                if (mmRes.ok) {
-                    var mmData = await mmRes.json();
-                    
-                    if (mmData.responseStatus === 200 && mmData.responseData && mmData.responseData.translatedText) {
-                        var mmTranslated = mmData.responseData.translatedText;
-                        
-                        // Filter out error messages
-                        if (!mmTranslated.includes('PLEASE SELECT') && !mmTranslated.includes('INVALID')) {
-                            if (mmTranslated.includes('MYMEMORY WARNING')) {
-                                mmTranslated = mmTranslated.split('MYMEMORY WARNING')[0].trim();
-                            }
-                            status.textContent = '💎 Translated!';
-                            return mmTranslated;
+                    if (api.name === 'MyMemory' && data.responseData && data.responseData.translatedText) {
+                        let translated = data.responseData.translatedText.trim();
+
+                        if (translated.includes('MYMEMORY WARNING')) {
+                            translated = translated.split('MYMEMORY WARNING')[0].trim();
+                        }
+
+                        if (translated && !translated.includes('PLEASE SELECT') && !translated.includes('INVALID')) {
+                            return translated;
                         }
                     }
-                }
-            } catch (e) {
-                console.log('MyMemory error:', e);
-            }
 
-            // Backup: Lingva API
-            try {
-                var lingvaFrom = (fromLang === 'auto') ? 'auto' : fromLang;
-                var lingvaUrl = 'https://lingva.lunar.icu/api/v1/' + lingvaFrom + '/' + toLang + '/' + encodeURIComponent(text);
-                
-                var lingvaRes = await fetch(lingvaUrl);
-                
-                if (lingvaRes.ok) {
-                    var lingvaData = await lingvaRes.json();
-                    
-                    if (lingvaData && lingvaData.translation) {
-                        status.textContent = '💎 Translated!';
-                        return lingvaData.translation;
+                    if (api.name === 'Lingva' && data.translation) {
+                        return data.translation.trim();
                     }
+                } catch (error) {
+                    console.log(`${api.name} API failed:`, error);
                 }
-            } catch (e) {
-                console.log('Lingva error:', e);
             }
 
-            status.textContent = '⚠️ Translation unavailable';
             return text;
         }
 
-        function triggerFade(translatedText) {
-            // Update target font to match target language
-            const targetFontClass = fontMapping[targetLang.value] || 'font-default';
-            const targetDirection = rtlLanguages.includes(targetLang.value) ? 'rtl' : 'ltr';
-            target.className = 'gem-text ' + targetFontClass + ' ' + targetDirection;
-            
+        function showTranslation(translatedText) {
+            applyLanguageStyle(target, targetLang.value);
             target.textContent = translatedText;
             isAnimating = true;
 
-            source.style.transition = 'opacity ' + FADE_DURATION + 'ms ease, filter ' + FADE_DURATION + 'ms ease, transform ' + FADE_DURATION + 'ms ease';
+            source.style.transition = `all ${FADE_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`;
             source.style.opacity = '0';
-            source.style.filter = 'blur(22px)';
-            source.style.transform = 'scale(0.87)';
+            source.style.filter = 'blur(25px) brightness(1.5)';
+            source.style.transform = 'scale(0.9) rotate(-2deg)';
 
-            target.style.transition = 'opacity ' + FADE_DURATION + 'ms ease, filter ' + FADE_DURATION + 'ms ease, transform ' + FADE_DURATION + 'ms ease';
+            target.style.transition = `all ${FADE_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`;
             target.style.opacity = '1';
-            target.style.filter = 'blur(0px)';
-            target.style.transform = 'scale(1)';
+            target.style.filter = 'blur(0) brightness(1.2)';
+            target.style.transform = 'scale(1) rotate(0deg)';
 
-            setTimeout(resetBox, FADE_DURATION + 2500);
+            updateStatus('TRANSLATION COMPLETE');
+            window.setTimeout(resetTranslationBox, FADE_DURATION + 3000);
         }
 
-        function resetBox() {
+        function resetTranslationBox() {
             source.style.transition = 'none';
             source.style.opacity = '1';
-            source.style.filter = 'blur(0px)';
-            source.style.transform = 'scale(1)';
+            source.style.filter = 'none';
+            source.style.transform = 'none';
             source.textContent = '';
 
             target.style.transition = 'none';
             target.style.opacity = '0';
-            target.style.filter = 'blur(20px)';
-            target.style.transform = 'scale(1)';
+            target.style.filter = 'blur(30px)';
+            target.style.transform = 'scale(0.95)';
             target.textContent = '';
 
-            // Reset source font to current source language
-            if (sourceLang.value !== 'auto') {
-                updateInputLanguage(sourceLang.value);
-            }
-
-            status.textContent = '✨ Ready - type something!';
+            updateFontAndDirection(sourceLang.value);
+            updateStatus('✨ READY FOR NEXT TRANSLATION! ✨');
             isAnimating = false;
             source.focus();
         }
 
-        source.addEventListener('input', function() {
-            if (isAnimating) return;
+        async function triggerTranslation() {
+            const text = getSourceText();
 
-            clearTimeout(timeout);
-
-            var text = source.textContent || source.innerText;
-            
-            if (!text.trim()) {
-                status.textContent = '';
+            if (!text || isAnimating) {
                 return;
             }
 
-            status.textContent = '⏳ Waiting...';
-
-            timeout = setTimeout(async function() {
-                var from = sourceLang.value;
-                var to = targetLang.value;
-                var translated = await translateText(text, from, to);
-                triggerFade(translated);
-            }, WAIT_TIME);
-        });
-
-        window.addEventListener('load', function() {
-            status.textContent = '✨ Tap here and type!';
-            source.focus();
-        });
-
-        source.addEventListener('focus', function() {
-            if (!isAnimating && !source.textContent.trim()) {
-                status.textContent = '✨ Type something...';
+             if (sourceLang.value !== 'auto' && sourceLang.value === targetLang.value) {
+                updateStatus('SOURCE AND TARGET LANGUAGES MATCH');
+                return;
             }
+
+            const currentJobId = ++translationJobId;
+            updateStatus('✨ TRANSLATING WITH GEM POWER... ✨');
+
+            try {
+                const translated = await translateText(text, sourceLang.value, targetLang.value);
+
+                if (currentJobId !== translationJobId) {
+                    return;
+                }
+
+                if (translated && translated !== text) {
+                    showTranslation(translated);
+                    return;
+                }
+
+                updateStatus('⚠️ TRANSLATION FAILED OR RETURNED THE SAME TEXT');
+            } catch (error) {
+                console.error('Translation error:', error);
+                updateStatus('TRANSLATION ERROR');
+            }
+        }
+
+        function testLanguageInput() {
+            const langCode = sourceLang.value === 'auto' ? 'en' : sourceLang.value;
+            const sampleText = testPhrases[langCode];
+
+            if (!sampleText) {
+                updateStatus('NO TEST PHRASE FOR THIS LANGUAGE');
+                return;
+            }
+
+            source.textContent = sampleText;
+            updateFontAndDirection(langCode);
+            updateStatus(`TEST TEXT LOADED FOR ${langCode.toUpperCase()}`);
+
+            window.setTimeout(() => {
+                if (getSourceText()) {
+                    triggerTranslation();
+                }
+            }, 1000);
+        }
+
+        function handleInput() {
+            if (isAnimating) {
+                return;
+            }
+
+            window.clearTimeout(timeout);
+            translationJobId += 1;
+            updateFontAndDirection(sourceLang.value);
+
+            if (!getSourceText()) {
+                updateStatus('✨ READY - CLICK ABOVE AND TYPE! ✨');
+                return;
+            }
+
+            updateStatus('⏳ WAITING FOR MAGIC...');
+            timeout = window.setTimeout(triggerTranslation, WAIT_TIME);
+        }
+
+        function setupEventListeners() {
+            qrBtn.addEventListener('click', () => qrPopup.classList.add('active'));
+            qrClose.addEventListener('click', () => qrPopup.classList.remove('active'));
+            qrPopup.addEventListener('click', event => {
+                if (event.target === qrPopup) {
+                    qrPopup.classList.remove('active');
+                }
+            });
+
+            swapBtn.addEventListener('click', swapLanguages);
+            testBtn.addEventListener('click', testLanguageInput);
+
+            sourceLang.addEventListener('change', () => {
+                updateFontAndDirection(sourceLang.value);
+            });
+
+            source.addEventListener('input', handleInput);
+            source.addEventListener('focus', () => {
+                if (!isAnimating && !getSourceText()) {
+                    updateStatus('✨ TYPE SOMETHING AMAZING... ✨');
+                }
+            });
+            source.addEventListener('click', () => source.focus());
+
+            document.addEventListener('keydown', event => {
+                if ((event.ctrlKey || event.metaKey) && event.key === 'Enter' && getSourceText()) {
+                    triggerTranslation();
+                }
+
+                if (event.key === 'Escape') {
+                    qrPopup.classList.remove('active');
+                }
+            });
+        }
+
+        function init() {
+            updateStatus('✨ READY - CLICK ABOVE AND TYPE! ✨');
+            updateFontAndDirection(sourceLang.value);
+            setupEventListeners();
+            setupPwa();
+            refreshQrCode();
+            createFloatingGems();
+        }
+
+        window.addEventListener('load', () => {
+            init();
+            source.focus();
+
+            window.setTimeout(() => {
+                if (!getSourceText()) {
+                    updateStatus('✨ SELECT A LANGUAGE AND START TYPING! ✨');
+                }
+            }, 1000);
         });
     </script>
-
 </body>
 </html>
