@@ -1,14 +1,23 @@
 {
   "name": "International Jewelry Box",
   "short_name": "Jewelry Box",
-  "description": "Translation, but make it aesthetic ✨ 26 languages with sparkles.",
+  "description": "A neon translator PWA with live translation, history, favorites, voice input, and speech playback.",
   "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#1a0033",
-  "theme_color": "#1a0033",
-  "orientation": "portrait",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "background_color": "#160028",
+  "theme_color": "#160028",
+  "orientation": "any",
+  "categories": [
+    "education",
+    "productivity",
+    "utilities"
+  ],
   "icons": [
     {
       "src": "icon-192.png",
