@@ -1,39 +1,41 @@
 # International Jewelry Box
 
-Beautiful translation, kept honest.
+Translation, but with style and without lying about what it does.
 
-International Jewelry Box is a static translation app with a neon-leaning visual style, device-local saved phrases, and a lightweight PWA shell. It is the first "compartment" in a broader collection of playful micro-tools.
+International Jewelry Box is a growing collection of creative micro-tools built to feel more playful, polished, and visually alive than standard utility apps. The first live compartment is **Translation Gem**: a static translation app with a dramatic visual shell, browser speech features, and device-local saved phrases.
 
-Live site:
+## Live Site
 
 - https://dacameragirl.github.io/international-jewelry-box/
 
-## What It Does Right Now
+## Current Compartment: Translation Gem
 
-- Translates text across 26 target languages
-- Auto-detects the source language when needed
-- Updates translation after a short typing pause
-- Saves recent translations locally on the device
-- Lets users save favorites locally
-- Copies translated text to the clipboard
-- Supports browser text-to-speech for source and translated text
-- Supports browser voice input where speech recognition is available
-- Includes multiple themes, including a light mode
-- Works as an installable PWA
-- Keeps the app shell and saved entries available offline
+Translation Gem is the active tool in this repo today. It focuses on fast browser-based translation with a more expressive UI than a plain form-and-button translator.
 
-## Important Reality Check
+## What Is Built Now
 
-- Live translation still depends on public translation endpoints
-- Offline mode preserves the interface and saved entries, not fresh translations
-- Voice input and speech playback depend on browser support
-- This is a client-side app with no private backend yet
+- 26 target languages
+- source-language auto-detection
+- live translation after a short pause
+- copy to clipboard
+- recent translation history stored locally
+- favorites stored locally
+- browser text-to-speech for source and translated text
+- browser voice input where speech recognition is supported
+- multiple visual themes, including a light mode
+- installable PWA shell
+- offline access to the app shell and saved entries
 
-If you want stronger reliability later, the next step is moving translation requests behind a small serverless proxy with a real paid API.
+## Honest Notes
+
+- fresh translations still require a network connection
+- translation currently depends on public endpoints, so long-term reliability is not guaranteed yet
+- voice input and speech playback depend on browser support
+- this project is still fully client-side and does not use a private backend
+
+If you want stronger production reliability later, the next step is moving translation calls behind a small serverless proxy with a real translation API.
 
 ## Supported Languages
-
-The current app supports these target languages:
 
 - Arabic
 - Chinese
@@ -74,9 +76,9 @@ international-jewelry-box/
 └── README.md
 ```
 
-## Local Use
+## Local Development
 
-Clone the repository:
+Clone the repo:
 
 ```bash
 git clone https://github.com/DaCameraGirl/international-jewelry-box.git
@@ -90,17 +92,24 @@ npx serve .
 
 ## Roadmap
 
-These are the most useful next steps, in order:
+### High Priority
 
-- Replace public translation endpoints with a reliable low-cost API path
-- Improve pronunciation controls and language-specific speech handling
-- Add better accessibility tuning for contrast, focus, and motion sensitivity
-- Expand the app into more "compartments" beyond translation
-- Add export and sharing formats for saved translations
+- replace public translation endpoints with a more reliable low-cost API path
+- improve accessibility for contrast, focus, readable motion, and keyboard flow
+- tighten mobile behavior and overall UX polish
+
+### Medium Priority
+
+- improve pronunciation and language-specific speech handling
+- add better export and sharing options for saved translations
+- expand the Jewelry Box with more compartments
+
+### Lower Priority
+
+- more theme packs and visual variants
+- richer animation passes where they help rather than distract
 
 ## GitHub Label Guide
-
-Suggested label meanings for this repo:
 
 - `gem: idea` new compartment or feature idea
 - `gem: translation` translation feature work
@@ -110,22 +119,23 @@ Suggested label meanings for this repo:
 - `gem: content` README, copywriting, docs, supported language notes
 - `gem: bug` broken behavior
 - `gem: polish` smaller refinements and cleanup
-- `priority: high` important soon
+- `priority: high` important and should happen soon
 - `priority: medium` useful but not urgent
-- `priority: low` nice to have
+- `priority: low` nice sparkle, not critical
 - `status: blocked` waiting on something else
 - `status: ready` ready to build
 - `good first gem` beginner-friendly contribution
 
 ## Contributing
 
-Contributions are welcome, especially for:
+Good contribution areas:
 
 - translation reliability
 - visual refinement
-- mobile behavior
+- mobile polish
 - accessibility improvements
-- additional compartments
+- new compartments
+- documentation cleanup
 
 ## License
 
@@ -133,4 +143,4 @@ MIT License
 
 ## Author
 
-Angela Hudson (DaCameraGirl)
+Angela Hudson (`DaCameraGirl`)
